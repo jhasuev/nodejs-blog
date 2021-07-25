@@ -1,0 +1,36 @@
+<section class="card border-0 mb-4">
+  <div class="card-body border  rounded-bottom">
+    <h2 class="mb-4">Редактирование</h2>
+    <form method="POST">
+      <div class="mb-3">
+        <label class="form-label">Название поста</label>
+        <input type="text" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Превью поста</label>
+        <img src="https://picsum.photos/300/150" alt="превью" class="w-100 mb-2">
+        <input type="file" class="form-control p-1 w-100">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Короткое описание</label>
+        <textarea class="form-control" rows="3"></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Полное описание</label>
+        <textarea class="form-control" rows="5"></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Категория</label>
+        <select class="select2  js-select2" name="category" value="n2">
+          <option value=""></option>
+          <option value="n1">Путешествия</option>
+          <option value="n2">Программирования</option>
+          <option value="n3">Спорт</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <button class="btn  btn-light">Изменить</button>
+      </div>
+    </form>
+  </div>
+</section>
