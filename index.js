@@ -5,6 +5,7 @@ const router = require("./router/")
 const config = require("./config")
 const app = express()
 app.use(router)
+app.use(express.static(path.join(__dirname, "public")))
 
 const hbs = handlebars({
   defaultLayout: "main",
