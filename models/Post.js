@@ -1,15 +1,15 @@
 const { Schema, model } = require("mongoose")
 
 const schema = Schema({
-  userID: {
+  userId: {
     type: String,
     required: true,
   },
-  categoryID: {
+  categoryId: {
     type: String,
     required: true,
   },
-  image: {
+  imageSrc: {
     type: String,
     required: true,
   },
