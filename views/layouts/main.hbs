@@ -1,13 +1,15 @@
 {{>head }}
 
-{{>header }}
+{{#if authed}}
+  {{>header-authed }}
+{{else}}
+  {{>header }}
+{{/if}}
 
 <main class="container main py-4">
   <div class="row">
     <div class="col-lg-8 col-xl-9 content">
       {{{ body }}}
-
-      {{> pagination }}
     </div>
 
     {{> sidebar }}
