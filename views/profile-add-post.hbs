@@ -1,0 +1,35 @@
+<section class="card border-0 mb-4">
+  <div class="card-body border  rounded-bottom">
+    <h2 class="mb-4">Новый пост</h2>
+    <form method="POST">
+      <div class="mb-3">
+        <label class="form-label">Название поста</label>
+        <input type="text" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Превью поста</label>
+        <input type="file" class="form-control p-1 w-100">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Короткое описание</label>
+        <textarea class="form-control" rows="3"></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Полное описание</label>
+        <textarea class="form-control" rows="5"></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Категория</label>
+        <select class="select2  js-select2" name="category" value="">
+          <option></option>
+          <option value="Путешествия">Путешествия</option>
+          <option value="Программирования">Программирования</option>
+          <option value="Спорт">Спорт</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <button class="btn  btn-light">Добавить пост</button>
+      </div>
+    </form>
+  </div>
+</section>
