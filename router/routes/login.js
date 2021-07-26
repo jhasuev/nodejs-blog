@@ -3,6 +3,7 @@ const { checkValid } = require("../../helper")
 
 module.exports = router => {
   router.get("/login", (req, res) => {
+    console.log(req.session.userId)
     res.render("login")
   })
 
@@ -35,7 +36,7 @@ module.exports = router => {
     if (Object.keys(errors).length) {
       res.render("login", { errors, fields: { login, password } })
     } else {
-      // TODO: сохранить _id в куки/сессии
+      req.session.userId = user._id
       res.redirect("/profile")
     }
   })

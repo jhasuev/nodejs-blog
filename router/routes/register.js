@@ -42,10 +42,9 @@ module.exports = router => {
     if (!Object.keys(errors).length) {
       // ошибок нет, можно регистрировать
       const user = new User({ name, login, password })
-      // TODO: сохранить _id в куки/сессии
-
       try {
         await user.save()
+        req.session.userId = user._id
         return res.redirect("/profile")
       } catch (e) {
         console.log(e);

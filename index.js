@@ -1,11 +1,13 @@
 const path = require("path")
 const express = require("express")
+const session = require("express-session")
 const mongoose = require("mongoose")
 const handlebars = require("express-handlebars")
 const router = require("./router/")
 const config = require("./config")
 const app = express()
 app.use(require("body-parser").urlencoded({ extended: true }))
+app.use(session({ secret: "277" }))
 app.use(router)
 app.use(express.static(path.join(__dirname, "public")))
 
