@@ -15,12 +15,12 @@ module.exports = router => {
     const errors = {}
     let valid = true
 
-    valid = checkValid("name", name)
+    valid = checkValid("auth", "name", name)
     if (valid !== true) {
       errors.name = valid
     }
 
-    valid = checkValid("login", login)
+    valid = checkValid("auth", "login", login)
     if (valid !== true) {
       errors.login = valid
     } else {
@@ -30,7 +30,7 @@ module.exports = router => {
       }
     }
 
-    valid = checkValid("password", password)
+    valid = checkValid("auth", "password", password)
     if (valid !== true) {
       errors.password = valid
     }

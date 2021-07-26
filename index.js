@@ -15,6 +15,7 @@ app.use(express.static(path.join(__dirname, "public")))
 const hbs = handlebars({
   defaultLayout: "main",
   extname: "hbs",
+  helpers: require('./handlebars-helpers')
 })
 app.engine("hbs", hbs)
 app.set("views", path.join(__dirname, "views"))

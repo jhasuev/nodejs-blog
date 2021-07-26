@@ -65,9 +65,11 @@ body {
 
 .select2 {
 	width: 100%;
+	border-radius: 4px;
 }
-input:focus {
-	outline: 0;
+.select2:focus,
+.select2 input:focus {
+	outline: 0 !important;
 }
 
 .select2-selection__rendered {
@@ -85,6 +87,14 @@ input:focus {
 .select2-container--default .select2-selection--single .select2-selection__clear {
 	height: 34px !important;
 	opacity: 0.5;
+}
+
+.select2.is-invalid + .select2-container {
+	border: 1px solid #DC3545 !important;
+}
+
+.select2.is-invalid ~ .invalid-feedback {
+	display: block;
 }
 
 

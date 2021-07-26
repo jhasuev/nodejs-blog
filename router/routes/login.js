@@ -13,12 +13,12 @@ module.exports = router => {
     let user = null
     let valid = null
 
-    valid = checkValid("password", password)
+    valid = checkValid("auth", "password", password)
     if (valid !== true) {
       errors.password = valid
     }
 
-    valid = checkValid("login", login)
+    valid = checkValid("auth", "login", login)
     if (valid !== true) {
       errors.login = valid
     }
