@@ -2,6 +2,7 @@ const path = require("path")
 const express = require("express")
 const session = require("express-session")
 const mongoose = require("mongoose")
+const migrations = require("./migrations")
 const handlebars = require("express-handlebars")
 const router = require("./router/")
 const config = require("./config")
@@ -25,6 +26,8 @@ async function start() {
       useNewUrlParser: true,
       useFindAndModify: false,
     })
+    // запускаем миграции
+    await migrations()
 
     app.listen(config.PORT, () => {
       console.log(`Server started listening on ${config.PORT} port...`);

@@ -1,28 +1,17 @@
 const { Schema, model } = require("mongoose")
 
 const schema = Schema({
-  userId: {
-    type: String,
-    required: true,
-  },
   slug: {
     type: String,
+    unique: true,
     minLength: 1,
     maxLength: 50,
   },
   title: {
     type: String,
+    unique: true,
     minLength: 1,
     maxLength: 50,
-  },
-  desc: {
-    type: String,
-    minLength: 50,
-    maxLength: 227,
-  },
-  active: {
-    type: Boolean,
-    default: false,
   },
 })
 
