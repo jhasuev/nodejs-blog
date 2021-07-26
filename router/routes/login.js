@@ -3,7 +3,6 @@ const { checkValid } = require("../../helper")
 
 module.exports = router => {
   router.get("/login", (req, res) => {
-    console.log(req.session.userId)
     res.render("login")
   })
 

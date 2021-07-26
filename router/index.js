@@ -1,6 +1,16 @@
 const { Router } = require("express")
 const router = Router()
 
+// хз, но кажется так лучше, чем через middleware...
+router.all(["/login", "/register"], (req, res, next) => {
+  if (req.session.userId) res.redirect("/profile")
+  else next()
+})
+router.all("/profile*", (req, res, next) => {
+  if (!req.session.userId) res.redirect("/")
+  else next()
+})
+
 require("./routes/index")(router)
 require("./routes/post")(router)
 require("./routes/login")(router)
