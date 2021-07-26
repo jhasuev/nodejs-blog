@@ -4,14 +4,24 @@
     <form method="POST">
       <div class="mb-3">
         <label class="form-label">Логин</label>
-        <input type="text" class="form-control">
+        {{#if errors.login }}
+          <input type="text" name="login" class="form-control is-invalid" value="{{ fields.login }}">
+          <div class="invalid-feedback">{{ errors.login }}</div>
+        {{else}}
+          <input type="text" name="login" class="form-control" value="{{ fields.login }}">
+        {{/if}}
       </div>
       <div class="mb-3">
         <label class="form-label">Пароль</label>
-        <input type="password" class="form-control">
+        {{#if errors.password }}
+          <input type="password" name="password" class="form-control is-invalid" value="{{ fields.password }}">
+          <div class="invalid-feedback">{{ errors.password }}</div>
+        {{else}}
+          <input type="password" name="password" class="form-control" value="{{ fields.password }}">
+        {{/if}}
       </div>
       <div class="mb-3">
-        Нет аккаунта? <a href="register.html">Регистрация</a>
+        Нет аккаунта? <a href="/register">Регистрация</a>
       </div>
       <div class="mb-3">
         <button class="btn  btn-light">Войти</button>
