@@ -10,4 +10,22 @@ module.exports = {
     }
     return true
   },
+
+  getPagination: (page, count) => {
+    const max = config.maxPerPage
+    const skip = max * (page - 1)
+    const pagesCount = Math.ceil(count / max)
+    const pages = []
+
+    if (pagesCount > 1) {
+      for (let i = 1; i <= pagesCount; i++) {
+        pages.push({
+          page: i,
+          active: i === page,
+        })
+      }
+    }
+
+    return { page, pages, skip }
+  }
 }

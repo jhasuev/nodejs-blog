@@ -1,5 +1,6 @@
 module.exports = {
   PORT: 3000,
+  maxPerPage: 2,
   auth: {
     login: { minLength: 3, maxLength: 27 },
     password: { minLength: 5, maxLength: 27 },

@@ -12,7 +12,11 @@
       {{{ body }}}
     </div>
 
-    {{> sidebar }}
+    <sidebar class="col-lg-4 col-xl-3 sidebar">
+      {{> categories }}
+      {{> recent-posts }}
+      {{> popular-posts }}
+    </sidebar>
   </div>
 </main>
 
