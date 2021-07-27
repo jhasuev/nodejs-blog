@@ -1,4 +1,5 @@
 const Post = require("../../models/Post")
+const Comment = require("../../models/Comment")
 const Category = require("../../classes/Category")
 const config = require("../../config")
 const { getPagination } = require("../../helpers/index")
@@ -29,9 +30,16 @@ module.exports = router => {
 
     //посты
     const posts = await Post.find(findParams).lean().skip(pagination.skip).limit(config.maxPerPage)
-    posts.forEach(async post => {
-      post.category = categories.find(cat => cat._id == post.categoryId)
-    })
+    await (() => {
+      return new Promise(async resolve => {
+        let postsCount = posts.length
+        posts.forEach(async post => {
+          post.category = categories.find(cat => cat._id == post.categoryId)
+          post.commentsCount = await Comment.count({ postId: post._id })
+          if (--postsCount <= 0) resolve()
+        })
+      })
+    })()
 
     res.render("profile", {
       posts,
