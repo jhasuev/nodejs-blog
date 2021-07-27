@@ -1,5 +1,5 @@
 const User = require("../../models/User")
-const { checkValid } = require("../../helper")
+const { checkValid } = require("../../helpers/")
 
 module.exports = router => {
   router.get("/login", (req, res) => {

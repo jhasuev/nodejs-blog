@@ -1,4 +1,4 @@
-const { checkValid } = require("../../helper")
+const { checkValid } = require("../../helpers/")
 const User = require("../../models/User")
 
 module.exports = router => {
@@ -35,7 +35,10 @@ module.exports = router => {
       errors.password = valid
     }
 
-    if (password != passwordConfirm) {
+    valid = checkValid("auth", "password", passwordConfirm)
+    if (valid !== true) {
+      errors.passwordConfirm = valid
+    } else if (password != passwordConfirm) {
       errors.passwordConfirm = "Пароли должны совпадать"
     }
 

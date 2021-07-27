@@ -1,6 +1,6 @@
 const Category = require("../../models/Category")
 const upload = require("../../upload")
-const { checkValid } = require("../../helper")
+const { checkValid } = require("../../helpers/")
 const Post = require("../../models/Post")
 
 module.exports = router => {
