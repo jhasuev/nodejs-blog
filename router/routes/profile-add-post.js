@@ -1,5 +1,5 @@
 const Category = require("../../models/Category")
-const upload = require("../../upload")
+const upload = require("../../middleware/upload")
 const { checkValid } = require("../../helpers/")
 const Post = require("../../models/Post")
 
