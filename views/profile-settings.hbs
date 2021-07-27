@@ -2,12 +2,31 @@
   <div class="card-body border  rounded-bottom">
     <h2 class="mb-4">Профиль</h2>
 
+    {{#if updated}}
+      <div class="alert alert-success">Данные обновлены</div>
+    {{/if}}
+
     <div class="card h-100  mb-3">
       <div class="card-body">
         <form method="POST">
+          <input type="hidden" name="type" value="info">
+          <div class="mb-3">
+            <label class="form-label">Ваше логин</label>
+            {{#if errors.login }}
+              <input type="text" name="login" class="form-control is-invalid" value="{{ fields.login }}">
+              <div class="invalid-feedback">{{ errors.login }}</div>
+            {{else}}
+              <input type="text" name="login" class="form-control" value="{{ fields.login }}">
+            {{/if}}
+          </div>
           <div class="mb-3">
             <label class="form-label">Ваше имя</label>
-            <input type="text" class="form-control">
+            {{#if errors.name }}
+              <input type="text" name="name" class="form-control is-invalid" value="{{ fields.name }}">
+              <div class="invalid-feedback">{{ errors.name }}</div>
+            {{else}}
+              <input type="text" name="name" class="form-control" value="{{ fields.name }}">
+            {{/if}}
           </div>
           <div class="mb-3">
             <button class="btn  btn-dark">Изменить имя</button>
@@ -19,17 +38,33 @@
     <div class="card h-100  mb-3">
       <div class="card-body">
         <form method="POST">
+          <input type="hidden" name="type" value="password">
           <div class="mb-3">
             <label class="form-label">Старый пароль</label>
-            <input type="password" class="form-control">
+            {{#if errors.oldPassword }}
+              <input type="password" name="oldPassword" class="form-control is-invalid" value="{{ fields.oldPassword }}">
+              <div class="invalid-feedback">{{ errors.oldPassword }}</div>
+            {{else}}
+              <input type="password" name="oldPassword" class="form-control" value="{{ fields.oldPassword }}">
+            {{/if}}
           </div>
           <div class="mb-3">
             <label class="form-label">Новый пароль</label>
-            <input type="password" class="form-control">
+            {{#if errors.password }}
+              <input type="password" name="password" class="form-control is-invalid" value="{{ fields.password }}">
+              <div class="invalid-feedback">{{ errors.password }}</div>
+            {{else}}
+              <input type="password" name="password" class="form-control" value="{{ fields.password }}">
+            {{/if}}
           </div>
           <div class="mb-3">
             <label class="form-label">Повторить пароль</label>
-            <input type="password" class="form-control">
+            {{#if errors.passwordConfirm }}
+              <input type="password" name="passwordConfirm" class="form-control is-invalid" value="{{ fields.passwordConfirm }}">
+              <div class="invalid-feedback">{{ errors.passwordConfirm }}</div>
+            {{else}}
+              <input type="password" name="passwordConfirm" class="form-control" value="{{ fields.passwordConfirm }}">
+            {{/if}}
           </div>
           <div class="mb-3">
             <button class="btn  btn-dark">Сохранить пароль</button>
