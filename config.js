@@ -12,4 +12,7 @@ module.exports = {
     text: { minLength: 227, maxLength: 22700 },
     image: { types: ["jpeg", "png"], },
   },
+  comment: {
+    text: { minLength: 2, maxLength: 2270 },
+  }
 }
