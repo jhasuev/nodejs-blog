@@ -1,6 +1,9 @@
 <section class="card border-0 mb-4">
   <div class="card-body border  rounded-bottom">
     <h2 class="mb-4">Новый пост</h2>
+    {{#if updated}}
+      <div class="alert alert-success">Данные обновлены</div>
+    {{/if}}
     <form method="POST" enctype="multipart/form-data">
       <div class="mb-3">
         <label class="form-label">Название поста</label>
@@ -13,6 +16,11 @@
       </div>
       <div class="mb-3">
         <label class="form-label">Превью поста</label>
+        {{#if fields.imageSrc }}
+          <input type="hidden" name="imageSrc" value="{{ fields.imageSrc }}">
+          <img src="{{ fields.imageSrc }}" alt="превью" class="w-100 mb-2">
+        {{/if}}
+
         {{#if errors.image }}
           <input type="file" name="image" class="form-control is-invalid p-1 w-100" accept="image/jpeg,image/png">
           <div class="invalid-feedback">{{ errors.image }}</div>
