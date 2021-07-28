@@ -1,6 +1,7 @@
+const fs = require("fs")
 const Category = require("../../models/Category")
 const upload = require("../../middleware/upload")
-const { checkValid } = require("../../helpers/")
+const { checkValid, checkValidImage } = require("../../helpers/")
 const Post = require("../../models/Post")
 
 module.exports = router => {
@@ -11,6 +12,7 @@ module.exports = router => {
 
   router.post("/profile/add", upload.single('image'), async (req, res) => {
     const categories = await Category.find({}).lean()
+    const image = req.file
     const title = req.body.title.trim()
     const excerpt = req.body.excerpt.trim()
     const text = req.body.text.trim()
@@ -35,14 +37,20 @@ module.exports = router => {
       if (!selectedCategory) errors.category = "Такой категории нет"
     }
 
-    if (!req.file) {
+    if (!image) {
       errors.image = "Выберите превью поста"
-    } else if (Object.keys(errors).length) {
-      // TODO: удалить превью, нету смысла хранить его
+    } else {
+      valid = checkValidImage("post", image)
+      if (valid !== true) {
+        errors.image = valid
+      }
+
+      if (Object.keys(errors).length) {
+        fs.unlinkSync(image.path)
+      }
     }
 
     if (Object.keys(errors).length) {
-      // ошибок нет, можно добавить пост
       res.render("profile-add-post", {
         categories,
         errors,
@@ -51,7 +59,7 @@ module.exports = router => {
       })
     } else {
       // ошибок нет, можно добавить пост
-      const imageSrc = `${req.file.destination.split("public/").join("/")}/${req.file.filename}`
+      const imageSrc = `${image.destination.split("public/").join("/")}/${image.filename}`
       
       const post = new Post({
         title,

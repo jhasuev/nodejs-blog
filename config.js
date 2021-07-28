@@ -10,5 +10,6 @@ module.exports = {
     title: { minLength: 5, maxLength: 100 },
     excerpt: { minLength: 50, maxLength: 227 },
     text: { minLength: 227, maxLength: 22700 },
+    image: { types: ["jpeg", "png"], },
   },
 }

@@ -10,6 +10,14 @@ module.exports = {
     }
     return true
   },
+  
+  checkValidImage(cat, image){
+    const imageType = image.mimetype.split("/").pop()
+    if (!config[cat].image.types.includes(imageType)) {
+      return "Неверный формат файла"
+    }
+    return true
+  },
 
   getPagination: (page, count) => {
     const max = config.maxPerPage
