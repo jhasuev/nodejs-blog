@@ -1,4 +1,7 @@
 const config = require("../config")
+const Post = require("../models/Post")
+const Category = require("../models/Category")
+const Comment = require("../models/Comment")
 
 module.exports = {
   checkValid: (cat, type, value) => {
@@ -36,5 +39,45 @@ module.exports = {
     }
 
     return { page, pages, skip, root }
+  },
+
+  getAllCategories({params, includePostsCount}) {
+    return new Promise(async resolve => {
+      const categories = await Category.find({}).lean()
+      let count = categories.length
+      if (!count) {
+        return resolve(categories)
+      }
+
+      if (includePostsCount) {
+        categories.forEach(async category => {
+          category.postsCount = await Post.count({ categoryId: category._id, ...Object(params) })
+          if (--count <= 0) resolve(categories)
+        })
+      } else {
+        resolve(categories)
+      }
+    })
+  },
+
+  getPosts({ params, skip }) {
+    return new Promise(async resolve => {
+      const posts = await Post.find(params).lean().skip(skip).limit(config.maxPerPage)
+      let postsCount = posts.length
+
+      if (!postsCount) {
+        return resolve(posts)
+      }
+
+      const categories = await Category.find({}).lean()
+      posts.forEach(async post => {
+        post.category = categories.find(cat => cat._id == post.categoryId)
+        post.commentsCount = await Comment.count({ postId: post._id })
+        
+        if (--postsCount <= 0) {
+          resolve(posts)
+        }
+      })
+    })
   }
 }

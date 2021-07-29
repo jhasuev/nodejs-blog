@@ -1,14 +1,14 @@
 const CategoryModel = require("../../models/Category")
-const Category = require("../../classes/Category")
+// const Category = require("../../models/Category")
 const Post = require("../../models/Post")
 const Comment = require("../../models/Comment")
-const { checkValid } = require("../../helpers/")
+const { checkValid, getAllCategories } = require("../../helpers/")
 
 module.exports = router => {
   router.get("/post/:_id", async (req, res) => {
     const post = await Post.findById(req.params._id).lean()
     if (!post) return res.redirect("/")
-    const categories = await Category.getAllCategories(true)
+    const categories = await getAllCategories({ includePostsCount: true })
 
     const comments = await Comment.find({ postId: post._id }).lean()
     post.category = await CategoryModel.findById(post.categoryId).lean()
@@ -29,7 +29,7 @@ module.exports = router => {
     const post = await Post.findById(req.params._id).lean()
     if (!post) return res.redirect("/")
 
-    const categories = await Category.getAllCategories(true)
+    const categories = await getAllCategories({ includePostsCount: true })
 
     const text = req.body.text.trim()
     const errors = {}
