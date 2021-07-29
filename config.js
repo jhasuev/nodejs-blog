@@ -1,6 +1,8 @@
 module.exports = {
   PORT: 3000,
   maxPerPage: 3,
+  popularPostsMax: 5,
+  recentPostsMax: 5,
   auth: {
     login: { minLength: 3, maxLength: 27 },
     password: { minLength: 5, maxLength: 27 },

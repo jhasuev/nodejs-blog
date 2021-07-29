@@ -19,6 +19,8 @@ module.exports = router => {
     const categories = await Categories.getAllCategories(req, { includePostsCount: true })
     const pagination = await Posts.getPagination(req, params)
     const posts = await Posts.getPosts(req, params)
+    const recentPosts = await Posts.getRecentPosts()
+    const popularPosts = await Posts.getPopularPosts()
 
     
     res.render("search", {
@@ -26,6 +28,8 @@ module.exports = router => {
       pagination,
       count,
       search,
+      recentPosts,
+      popularPosts,
       authed: req.session.userId,
       categories: { list: categories },
     })

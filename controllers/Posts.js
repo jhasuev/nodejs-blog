@@ -9,16 +9,15 @@ class Posts {
   getPosts(req, params = {}) {
     return new Promise(async resolve => {
       const categorySlug = String(req.params.category).trim()
-      const findParams = { ...params }
       let category = null
 
       if (categorySlug) {
         category = await Category.findOne({ slug: categorySlug })
-        if (category) findParams.categoryId = category._id
+        if (category) params.categoryId = category._id
       }
 
       const skip = config.maxPerPage * (Math.abs(Number(req.query.page) || 1) - 1)
-      const posts = await Post.find(findParams).sort({ created: -1 }).skip(skip).limit(config.maxPerPage).lean()
+      const posts = await Post.find(params).sort({ created: -1 }).skip(skip).limit(config.maxPerPage).lean()
       let postsCount = posts.length
 
       if (!postsCount) {
@@ -36,6 +35,20 @@ class Posts {
       })
     })
   }
+  
+  getRecentPosts() {
+    return new Promise(async resolve => {
+      const posts = await Post.find().sort({ created: -1 }).limit(config.recentPostsMax).lean()
+      resolve(posts)
+    })
+  }
+  
+  getPopularPosts() {
+    return new Promise(async resolve => {
+      const posts = await Post.find().sort({ views: -1 }).limit(config.popularPostsMax).lean()
+      resolve(posts)
+    })
+  }
 
   getCount(params) {
     return new Promise(async resolve => {
@@ -47,15 +60,14 @@ class Posts {
   getPagination(req, params = {}){
     return new Promise(async resolve => {
       const categorySlug = String(req.params.category).trim()
-      const findParams = { ...params }
       let category = null
 
       if (categorySlug) {
         category = await Category.findOne({ slug: categorySlug }).lean()
-        if (category) findParams.categoryId = category._id
+        if (category) params.categoryId = category._id
       }
 
-      const count = await this.getCount(findParams)
+      const count = await this.getCount(params)
       let root = '/'
       if (category) root += categorySlug
 

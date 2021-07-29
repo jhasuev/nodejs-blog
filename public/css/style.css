@@ -58,6 +58,16 @@ body {
 	background-color: #333;
 }
 
+
+.sidebar-link-item {
+	word-break: break-word;
+	font-size: 11px;
+	padding-right: 5px;
+}
+.sidebar-link-item::first-line {
+	font-size: 1rem;
+}
+
 .p-404-code {
 	font-size: 100px;
 	line-height: 1;

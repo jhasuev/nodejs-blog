@@ -1,3 +1,4 @@
+const Posts = require("../../controllers/Posts")
 const Post = require("../../models/Post")
 const Comment = require("../../models/Comment")
 const { checkValid } = require("../../helpers/")
@@ -13,12 +14,17 @@ module.exports = router => {
     post.category = await Categories.getById(post.categoryId)
     post.commentsCount = comments.length
 
+    const recentPosts = await Posts.getRecentPosts()
+    const popularPosts = await Posts.getPopularPosts()
+
     // увеличиваем счетчик просмотра
     await Post.findByIdAndUpdate(post._id, { views: post.views + 1 })
 
     res.render("post", {
       post,
       comments,
+      recentPosts,
+      popularPosts,
       authed: req.session.userId,
       categories: { list: categories },
     })
@@ -39,10 +45,15 @@ module.exports = router => {
     valid = checkValid("comment", "text", text)
     if (valid !== true) errors.text = valid
 
+    const recentPosts = await Posts.getRecentPosts()
+    const popularPosts = await Posts.getPopularPosts()
+
     if(Object.keys(errors).length) {
       res.render("post", {
         post,
         errors,
+        recentPosts,
+        popularPosts,
         authed: req.session.userId,
         categories: { list: categories },
       })
