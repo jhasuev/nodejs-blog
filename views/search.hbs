@@ -6,30 +6,7 @@
 </div>
 
 {{#each posts}}
-<section class="card mb-4">
-  <img src="{{ imageSrc }}" alt="{{ title }}" class="rounded-top">
-  <div class="card-body  rounded-bottom">
-    <h2>{{ title }}</h2>
-    <p class="card-text mb-3">{{ excerpt }}</p>
-    <small class="d-flex align-items-center  mb-2">
-      <span class="m-0 mr-2 font-weight-bold">Категория:</span>
-      <span>
-        <a href="/category/{{ category.slug }}" class="text-dark">{{ category.title }}</a>
-      </span>
-    </small>
-    <div class="d-flex justify-content-between">
-      <div class="d-flex">
-        <div class="post-view color-gray fz-small mr-3">
-          {{ commentsCount }} <i class="fa fa-comment"></i>
-        </div>
-        <div class="post-view color-gray fz-small">
-          {{ views }} <i class="fa fa-eye"></i>
-        </div>
-      </div>
-      <a href="/post/{{ _id }}" class="btn-link">Читать полностью</a>
-    </div>
-  </div>
-</section>
+  {{> post-item }}
 {{/each}}
 
 {{> pagination }}
