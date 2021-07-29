@@ -15,7 +15,10 @@ module.exports = router => {
     const popularPosts = await Posts.getPopularPosts()
 
     // увеличиваем счетчик просмотра
-    await Posts.updatePostViews(post)
+    if (req.session.lastWatchPostId != post._id) {
+      await Posts.updatePostViews(post)
+      req.session.lastWatchPostId = post._id
+    }
 
     res.render("post", {
       post,
