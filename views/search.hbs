@@ -1,33 +1,35 @@
 <div class="text-center  mb-4">
   <h2 class="mb-1">Поиск по сайту</h2>
   <small>
-    Ключевое слово: <b>спорт</b>, Результатов: <b>27</b>
+    Ключевое слово: <b>{{search}}</b>, Результатов: <b>{{count}}</b>
   </small>
 </div>
 
-<section class="card border-0 mb-4">
-  <a href="single.html" class="post-bg-image rounded-top"
-    style="background-image: url(https://picsum.photos/300/150);"></a>
-  <div class="card-body border border-top-0  rounded-bottom">
-    <h2><a href="single.html" class="post-link">Card title</a></h2>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-      content.</p>
+{{#each posts}}
+<section class="card mb-4">
+  <img src="{{ imageSrc }}" alt="{{ title }}" class="rounded-top">
+  <div class="card-body  rounded-bottom">
+    <h2>{{ title }}</h2>
+    <p class="card-text mb-3">{{ excerpt }}</p>
     <small class="d-flex align-items-center  mb-2">
       <span class="m-0 mr-2 font-weight-bold">Категория:</span>
       <span>
-        <a href="#" class="text-dark">Программирования</a>
+        <a href="/category/{{ category.slug }}" class="text-dark">{{ category.title }}</a>
       </span>
     </small>
     <div class="d-flex justify-content-between">
       <div class="d-flex">
         <div class="post-view color-gray fz-small mr-3">
-          10 <i class="fa fa-comment"></i>
+          {{ commentsCount }} <i class="fa fa-comment"></i>
         </div>
         <div class="post-view color-gray fz-small">
-          10 <i class="fa fa-eye"></i>
+          {{ views }} <i class="fa fa-eye"></i>
         </div>
       </div>
-      <a href="single.html" class="btn-link">Читать полностью</a>
+      <a href="/post/{{ _id }}" class="btn-link">Читать полностью</a>
     </div>
   </div>
 </section>
+{{/each}}
+
+{{> pagination }}

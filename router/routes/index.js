@@ -30,6 +30,7 @@ module.exports = router => {
     const posts = await Post.find(findParams).lean().skip(pagination.skip).limit(config.maxPerPage)
     await (() => {
       return new Promise(async resolve => {
+        if (!posts.length) resolve()
         let postsCount = posts.length
         posts.forEach(async post => {
           post.category = categories.find(cat => cat._id == post.categoryId)
