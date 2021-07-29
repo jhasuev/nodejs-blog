@@ -14,7 +14,7 @@ module.exports = router => {
     res.render("profile", {
       posts,
       pagination,
-      categories: { list: categories, root: "/profile/category/" },
+      categories: { list: categories, root: "/profile" },
       layout: "profile",
     })
   })

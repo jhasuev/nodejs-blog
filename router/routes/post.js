@@ -1,17 +1,16 @@
-const CategoryModel = require("../../models/Category")
-// const Category = require("../../models/Category")
 const Post = require("../../models/Post")
 const Comment = require("../../models/Comment")
-const { checkValid, getAllCategories } = require("../../helpers/")
+const { checkValid } = require("../../helpers/")
+const Categories = require("../../controllers/Categories")
 
 module.exports = router => {
   router.get("/post/:_id", async (req, res) => {
     const post = await Post.findById(req.params._id).lean()
     if (!post) return res.redirect("/")
-    const categories = await getAllCategories({ includePostsCount: true })
+    const categories = await Categories.getAllCategories(req, { includePostsCount: true })
 
     const comments = await Comment.find({ postId: post._id }).lean()
-    post.category = await CategoryModel.findById(post.categoryId).lean()
+    post.category = await Categories.getById(post.categoryId)
     post.commentsCount = comments.length
 
     // увеличиваем счетчик просмотра
@@ -20,16 +19,18 @@ module.exports = router => {
     res.render("post", {
       post,
       comments,
-      categories: { list: categories, root: "/category/" },
+      authed: req.session.userId,
+      categories: { list: categories },
     })
   })
 
   // роут добавление комментария
   router.post("/post/:_id", async (req, res) => {
+    if (!req.session.userId) return res.redirect("/")
     const post = await Post.findById(req.params._id).lean()
     if (!post) return res.redirect("/")
 
-    const categories = await getAllCategories({ includePostsCount: true })
+    const categories = await Categories.getAllCategories(req, { includePostsCount: true })
 
     const text = req.body.text.trim()
     const errors = {}
@@ -42,12 +43,13 @@ module.exports = router => {
       res.render("post", {
         post,
         errors,
-        categories: { list: categories, root: "/category/" },
+        authed: req.session.userId,
+        categories: { list: categories },
       })
     } else {
       const comment = Comment({
         text,
-        userId: "60fddf38331e9b0fd4e10fe3",
+        userId: req.session.userId,
         postId: post._id,
       })
       await comment.save()

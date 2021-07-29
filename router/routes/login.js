@@ -3,7 +3,9 @@ const { checkValid } = require("../../helpers/")
 
 module.exports = router => {
   router.get("/login", (req, res) => {
-    res.render("login")
+    res.render("login", {
+      layout: "main-no-sidebar",
+    })
   })
 
   router.post("/login", async (req, res) => {
@@ -33,7 +35,11 @@ module.exports = router => {
     }
 
     if (Object.keys(errors).length) {
-      res.render("login", { errors, fields: { login, password } })
+      res.render("login", {
+        errors,
+        fields: { login, password },
+        layout: "main-no-sidebar",
+      })
     } else {
       req.session.userId = user._id
       res.redirect("/profile")

@@ -6,7 +6,7 @@ module.exports = router => {
     let search = String(req.query.s).trim()
     let regex = new RegExp(search, 'i')
     
-    const findParams = {
+    const params = {
       $or: [
         { title: regex },
         { excerpt: regex },
@@ -14,11 +14,11 @@ module.exports = router => {
       ]
     }
 
-    const count = await Posts.getCount(findParams)
+    const count = await Posts.getCount(params)
 
     const categories = await Categories.getAllCategories(req, { includePostsCount: true })
-    const pagination = await Posts.getPagination(req, findParams)
-    const posts = await Posts.getPosts(req, findParams)
+    const pagination = await Posts.getPagination(req, params)
+    const posts = await Posts.getPosts(req, params)
 
     
     res.render("search", {
@@ -26,7 +26,8 @@ module.exports = router => {
       pagination,
       count,
       search,
-      categories: { list: categories, root: "/category/" },
+      authed: req.session.userId,
+      categories: { list: categories },
     })
   })
 }

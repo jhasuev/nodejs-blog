@@ -26,4 +26,6 @@
 
 {{> comments }}
 
-{{> comment-form }}
+{{#if authed}}
+  {{> comment-form }}
+{{/if}}

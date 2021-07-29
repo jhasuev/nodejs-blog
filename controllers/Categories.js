@@ -28,6 +28,13 @@ class Categories {
       }
     })
   }
+
+  getById(categoryId) {
+    return new Promise(async resolve => {
+      let category = await Category.findById(categoryId).lean()
+      resolve(category)
+    })
+  }
 }
 
 module.exports = new Categories()

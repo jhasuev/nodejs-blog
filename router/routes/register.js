@@ -3,7 +3,9 @@ const User = require("../../models/User")
 
 module.exports = router => {
   router.get("/register", (req, res) => {
-    res.render("register")
+    res.render("register", {
+      layout: "main-no-sidebar",
+    })
   })
 
   router.post("/register", async (req, res) => {
@@ -57,6 +59,7 @@ module.exports = router => {
     res.render("register", {
       errors,
       fields: { name, login, password, passwordConfirm },
+      layout: "main-no-sidebar",
     })
   })
 }
