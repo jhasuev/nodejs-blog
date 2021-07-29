@@ -6,6 +6,22 @@ const config = require("../config")
 const url = require("url")
 
 class Posts {
+  getPost(postId) {
+    return new Promise(async resolve => {
+      const post = await Post.findById(postId).lean()
+      post.commentsCount = await Comment.count({ postId })
+      post.category = await Category.findById(post.categoryId).lean()
+      resolve(post)
+    })
+  }
+  
+  updatePostViews(post) {
+    return new Promise(async resolve => {
+      await Post.findByIdAndUpdate(post._id, { views: post.views + 1 })
+      resolve()
+    })
+  }
+  
   getPosts(req, params = {}) {
     return new Promise(async resolve => {
       const categorySlug = String(req.params.category).trim()

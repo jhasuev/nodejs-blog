@@ -1,24 +1,21 @@
 const Posts = require("../../controllers/Posts")
-const Post = require("../../models/Post")
-const Comment = require("../../models/Comment")
-const { checkValid } = require("../../helpers/")
+const Comments = require("../../controllers/Comments")
 const Categories = require("../../controllers/Categories")
+const { checkValid } = require("../../helpers/")
 
 module.exports = router => {
   router.get("/post/:_id", async (req, res) => {
-    const post = await Post.findById(req.params._id).lean()
+    const post = await Posts.getPost(req.params._id)
     if (!post) return res.redirect("/")
+    
     const categories = await Categories.getAllCategories(req, { includePostsCount: true })
-
-    const comments = await Comment.find({ postId: post._id }).lean()
-    post.category = await Categories.getById(post.categoryId)
-    post.commentsCount = comments.length
+    const comments = await Comments.getComments(post._id)
 
     const recentPosts = await Posts.getRecentPosts()
     const popularPosts = await Posts.getPopularPosts()
 
     // увеличиваем счетчик просмотра
-    await Post.findByIdAndUpdate(post._id, { views: post.views + 1 })
+    await Posts.updatePostViews(post)
 
     res.render("post", {
       post,
@@ -33,37 +30,38 @@ module.exports = router => {
   // роут добавление комментария
   router.post("/post/:_id", async (req, res) => {
     if (!req.session.userId) return res.redirect("/")
-    const post = await Post.findById(req.params._id).lean()
+    const post = await Posts.getPost(req.params._id)
     if (!post) return res.redirect("/")
-
-    const categories = await Categories.getAllCategories(req, { includePostsCount: true })
-
+    
     const text = req.body.text.trim()
     const errors = {}
     let valid = null
-
+    
     valid = checkValid("comment", "text", text)
     if (valid !== true) errors.text = valid
-
-    const recentPosts = await Posts.getRecentPosts()
-    const popularPosts = await Posts.getPopularPosts()
-
+    
     if(Object.keys(errors).length) {
+      const categories = await Categories.getAllCategories(req, { includePostsCount: true })
+      const comments = await Comments.getComments(post._id)
+      const recentPosts = await Posts.getRecentPosts()
+      const popularPosts = await Posts.getPopularPosts()
+
       res.render("post", {
-        post,
         errors,
+
+        post,
+        comments,
         recentPosts,
         popularPosts,
         authed: req.session.userId,
         categories: { list: categories },
       })
     } else {
-      const comment = Comment({
+      const comment = await Comments.addComment({
         text,
         userId: req.session.userId,
         postId: post._id,
       })
-      await comment.save()
       res.redirect(`${req.url}#${comment._id}`)
     }
   })
