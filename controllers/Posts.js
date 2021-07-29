@@ -4,6 +4,7 @@ const Category = require("../models/Category")
 const User = require("../models/User")
 const config = require("../config")
 const url = require("url")
+const moment = require("moment")
 
 class Posts {
   getPost(postId) {
@@ -11,6 +12,8 @@ class Posts {
       const post = await Post.findById(postId).lean()
       post.commentsCount = await Comment.count({ postId })
       post.category = await Category.findById(post.categoryId).lean()
+      post.author = await User.findById(post.userId).lean()
+      post.created = moment(post.created).format(config.dateFormat)
       resolve(post)
     })
   }
@@ -44,6 +47,8 @@ class Posts {
       posts.forEach(async post => {
         post.category = categories.find(cat => cat._id == post.categoryId)
         post.commentsCount = await Comment.count({ postId: post._id })
+        post.author = await User.findById(post.userId).lean()
+        post.created = moment(post.created).format(config.dateFormat)
 
         if (--postsCount <= 0) {
           resolve(posts)

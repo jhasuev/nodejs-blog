@@ -1,15 +1,26 @@
-const Post = require("../models/Post")
 const Comment = require("../models/Comment")
-const Category = require("../models/Category")
 const User = require("../models/User")
 const config = require("../config")
-const url = require("url")
+const moment = require("moment")
 
 class Posts {
   getComments(postId) {
     return new Promise(async resolve => {
       const comments = await Comment.find({ postId }).lean()
-      resolve(comments)
+      let commentsCount = comments.length
+
+      if (!commentsCount) {
+        return resolve(comments)
+      }
+
+      comments.forEach(async comment => {
+        comment.user = await User.findById(comment.userId).lean()
+        comment.created = moment(comment.created).format(config.dateFormat)
+
+        if (--commentsCount <= 0) {
+          resolve(comments)
+        }
+      })
     })
   }
 

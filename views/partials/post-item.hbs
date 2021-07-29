@@ -18,8 +18,14 @@
         <div class="post-view color-gray fz-small mr-3">
           {{ commentsCount }} <i class="fa fa-comment"></i>
         </div>
-        <div class="post-view color-gray fz-small">
+        <div class="post-view color-gray fz-small mr-3">
           {{ views }} <i class="fa fa-eye"></i>
+        </div>
+        <div class="post-view color-gray fz-small mr-3">
+          {{ author.name }} <i class="fa fa-user"></i>
+        </div>
+        <div class="post-view color-gray fz-small mr-3">
+          {{ created }} <i class="fa fa-clock"></i>
         </div>
       </div>
       {{#if @root.isProfilePage}}

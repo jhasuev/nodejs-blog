@@ -1,8 +1,5 @@
 const Post = require("../models/Post")
-const Comment = require("../models/Comment")
 const Category = require("../models/Category")
-const User = require("../models/User")
-const config = require("../config")
 
 class Categories {
   getAllCategories(req, { params, includePostsCount }) {

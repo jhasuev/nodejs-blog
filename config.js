@@ -3,6 +3,7 @@ module.exports = {
   maxPerPage: 3,
   popularPostsMax: 5,
   recentPostsMax: 5,
+  dateFormat: "DD.MM.YYYY HH:mm:ss",
   auth: {
     login: { minLength: 3, maxLength: 27 },
     password: { minLength: 5, maxLength: 27 },

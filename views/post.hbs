@@ -10,8 +10,14 @@
         <div class="post-view color-gray fz-small mr-3">
           {{ post.commentsCount }} <i class="fa fa-comment"></i>
         </div>
-        <div class="post-view color-gray fz-small">
+        <div class="post-view color-gray fz-small mr-3">
           {{ post.views }} <i class="fa fa-eye"></i>
+        </div>
+        <div class="post-view color-gray fz-small mr-3">
+          {{ post.author.name }} <i class="fa fa-user"></i>
+        </div>
+        <div class="post-view color-gray fz-small mr-3">
+          {{ post.created }} <i class="fa fa-clock"></i>
         </div>
       </div>
       <small class="d-flex align-items-center">
