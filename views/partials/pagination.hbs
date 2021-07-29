@@ -1,16 +1,9 @@
 <nav>
   <ul class="pagination pagination-sm justify-content-center">
-    {{!-- {{ pagination.pages }} --}}
     {{#each pagination.pages}}
-      {{#if active}}
-        <li class="page-item active">
-          <a class="page-link" href="{{ rootUrl }}?page={{ page }}">{{ page }}</a>
-        </li>
-      {{else}}
-        <li class="page-item">
-          <a class="page-link" href="{{ rootUrl }}?page={{ page }}">{{ page }}</a>
-        </li>
-      {{/if}}
+      <li class="page-item {{#if active}} active {{/if}}">
+        <a class="page-link" href="{{ url }}">{{ page }}</a>
+      </li>
     {{/each}}
   </ul>
 </nav>

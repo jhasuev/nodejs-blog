@@ -5,7 +5,10 @@
       {{#if postsCount}}
     
         <li class="list-group-item p-0 overflow-hidden">
-          <a href="{{ ../categories.root }}{{ slug }}" class="btn btn-outline-dark d-flex align-items-center border-0 rounded-0 text-left">
+          <a
+            href="{{ ../categories.root }}{{ slug }}"
+            class="btn btn-outline-dark d-flex align-items-center border-0 rounded-0 text-left {{#if active}} active {{/if}}"
+          >
             <span>{{ title }}</span>
             <span class="color-gray fz-extra-small pl-1 ml-auto d-flex align-items-center"
               title="Всего статей">({{ postsCount }})</span>
