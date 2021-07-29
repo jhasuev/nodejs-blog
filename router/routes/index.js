@@ -19,10 +19,8 @@ module.exports = router => {
     }
 
     // пагинация
-    const page = Number(req.query.page) || 1
     const count = await Post.count(findParams)
-    const pagination = getPagination(page, count)
-    pagination.root = "/"
+    const pagination = getPagination(req.query.page, count)
     if (categoryId) pagination.root += categorySlug
 
 

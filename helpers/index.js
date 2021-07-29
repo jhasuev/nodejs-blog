@@ -19,7 +19,8 @@ module.exports = {
     return true
   },
 
-  getPagination: (page, count) => {
+  getPagination: (page, count, root = '/') => {
+    page = Number(page) || 1
     const max = config.maxPerPage
     const skip = max * (page - 1)
     const pagesCount = Math.ceil(count / max)
@@ -34,6 +35,6 @@ module.exports = {
       }
     }
 
-    return { page, pages, skip }
+    return { page, pages, skip, root }
   }
 }
