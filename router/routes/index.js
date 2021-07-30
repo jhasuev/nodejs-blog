@@ -10,8 +10,16 @@ module.exports = router => {
     const posts = await Posts.getPosts(req, params)
     const recentPosts = await Posts.getRecentPosts()
     const popularPosts = await Posts.getPopularPosts()
+    
+    const page = { title: "Главная", description: "Все категории сайта" }
+    const category = await Categories.getCategory(req.params.category)
+    if (category) {
+      page.title = category.title
+      page.description = category.title
+    }
 
     res.render("index", {
+      page,
       posts,
       recentPosts,
       popularPosts,

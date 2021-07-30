@@ -1,9 +1,11 @@
 const { checkValid } = require("../../helpers/")
 const User = require("../../models/User")
+const page = { title: "Регистрация", description: "Регистрация на сайте" }
 
 module.exports = router => {
   router.get("/register", (req, res) => {
     res.render("register", {
+      page,
       layout: "main-no-sidebar",
     })
   })
@@ -57,6 +59,7 @@ module.exports = router => {
     }
 
     res.render("register", {
+      page,
       errors,
       fields: { name, login, password, passwordConfirm },
       layout: "main-no-sidebar",

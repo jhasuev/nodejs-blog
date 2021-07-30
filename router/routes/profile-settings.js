@@ -1,11 +1,13 @@
 const User = require("../../models/User")
 const { checkValid } = require("../../helpers/")
+const page = { title: `Профиль > Настройки` }
 
 module.exports = router => {
   router.get("/profile/settings", async (req, res) => {
     const { name, login } = await User.findById(req.session.userId).lean()
 
     res.render("profile-settings", {
+      page,
       fields: { name, login },
       layout: "profile-no-sidebar",
     })
@@ -84,6 +86,7 @@ module.exports = router => {
     }
 
     res.render("profile-settings", {
+      page,
       errors,
       fields,
       updated,

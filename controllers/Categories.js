@@ -32,6 +32,13 @@ class Categories {
       resolve(category)
     })
   }
+
+  getCategory(slug) {
+    return new Promise(async resolve => {
+      let category = await Category.findOne({ slug }).lean()
+      resolve(category)
+    })
+  }
 }
 
 module.exports = new Categories()

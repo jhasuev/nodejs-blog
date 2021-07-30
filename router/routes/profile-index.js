@@ -11,7 +11,14 @@ module.exports = router => {
     const pagination = await Posts.getPagination(req, params)
     const posts = await Posts.getPosts(req, params)
 
+    const page = { title: "Профиль" }
+    const category = await Categories.getCategory(req.params.category)
+    if (category) {
+      page.title = `Профиль > ${category.title}`
+    }
+
     res.render("profile", {
+      page,
       posts,
       pagination,
       isProfilePage: true,

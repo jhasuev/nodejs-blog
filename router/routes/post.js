@@ -26,6 +26,7 @@ module.exports = router => {
       recentPosts,
       popularPosts,
       authed: req.session.userId,
+      page: { title: post.title, description: post.excerpt },
       categories: { list: categories },
     })
   })
@@ -56,6 +57,7 @@ module.exports = router => {
         comments,
         recentPosts,
         popularPosts,
+        page: { title: post.title, description: post.excerpt },
         authed: req.session.userId,
         categories: { list: categories },
       })

@@ -9,8 +9,9 @@ const storage = multer.diskStorage({
   filename(req, file, cb) {
     const date = moment().format("DDMMYYYY-HHmmss")
     const randNumber = String(Math.random()).split(".").pop()
+    const ext = file.originalname.split(".").pop()
     
-    cb(null, `${date}-${randNumber}-${file.originalname}`)
+    cb(null, `${date}-${randNumber}-${ext}`)
   },
 })
 

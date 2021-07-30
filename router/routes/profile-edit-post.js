@@ -5,7 +5,7 @@ const upload = require("../../middleware/upload")
 const { checkValid, checkValidImage } = require("../../helpers/")
 const Post = require("../../models/Post")
 
-const pageParams = {
+const page = {
   heading: "Редактирование",
   actionBtnText: "Изменить",
 }
@@ -18,8 +18,10 @@ module.exports = router => {
     const categories = await Category.find({}).lean()
     const category = await Category.findById(post.categoryId).lean()
 
+    page.title = `Редактирование: "${post.title}"`
+
     res.render("profile-add-edit-post", {
-      ...pageParams,
+      page,
       categories,
       updated: req.session.updated,
       fields: { ...post, category: category.slug },
@@ -79,8 +81,9 @@ module.exports = router => {
         } catch (e) { }
       }
       
+      page.title = `Редактирование: "${post.title}"`
       res.render("profile-add-edit-post", {
-        ...pageParams,
+        page,
         categories,
         errors,
         layout: "profile-no-sidebar",

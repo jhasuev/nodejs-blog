@@ -22,8 +22,10 @@ module.exports = router => {
     const recentPosts = await Posts.getRecentPosts()
     const popularPosts = await Posts.getPopularPosts()
 
+    const page = { title: `Поиск "${search}"`, description: `Поиск "${search}"` }
     
     res.render("search", {
+      page,
       posts,
       pagination,
       count,

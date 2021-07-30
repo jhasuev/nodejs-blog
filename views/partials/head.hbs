@@ -14,10 +14,16 @@
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />  
   <link rel="stylesheet" href="/css/style.css">
 
-  {{#if post.title }}
-    <title>{{ post.title }} | {{ post.category.title }}</title>
+  {{#if page.title }}
+    <title>{{ page.title }} | Блог для блогеров</title>
   {{else}}
-    <title>Блог</title>
+    <title>Блог для блогеров</title>
+  {{/if}}
+
+  {{#if page.description }}
+    <meta name="description" content="{{ page.description }}">
+  {{else}}
+    <meta name="description" content="Блог для блогеров">
   {{/if}}
 </head>
 <body>
