@@ -18,7 +18,7 @@
         <label class="form-label">Превью поста</label>
         {{#if fields.imageSrc }}
           <input type="hidden" name="imageSrc" value="{{ fields.imageSrc }}">
-          <img src="{{ fields.imageSrc }}" alt="превью" class="w-100 mb-2">
+          <img src="{{ fields.imageSrc }}" alt="превью" class="w-100 mb-2" style="max-width: 100px; max-height: 100px; display: block;">
         {{/if}}
 
         {{#if errors.image }}
